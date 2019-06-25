@@ -1,0 +1,6 @@
+### these are default bindings..
+- To see things in multiple tags at once in tag N, use Mod+Ctrl+tagNumber
+- To create multiple instances of a same window in different tags, highlight the desired window and use Mod+Ctrl+Shift+tagNumber. However, if you close it in one of the tag it will close for all tags
+- To "remove" an instance at one tag, just press Mod+Ctrl+tagNumYouAreAt then that window will disappear!
+- Mod+0 will see all the tags simultaneously
+- If, for example, we want the camera to be on all tags, we can just press Mod+Ctrl+tagNumber for it to be shown on all tags!
