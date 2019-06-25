@@ -3,7 +3,8 @@
 /*
   A list of patches that I have used:
   * movestack
-  * 
+  * keypress
+  * shiftview (got from "next prev tag")
 */
 
 /* appearance */
@@ -55,10 +56,10 @@ static const Layout layouts[] = {
 //#define MODKEY Mod1Mask
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+	{KeyPress,  MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{KeyPress,  MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+	{KeyPress,  MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{KeyPress,  MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -73,32 +74,38 @@ static const char *chromecmd[]  = { "chromium",  NULL};
 #include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,             			XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,             			XK_n, 		spawn,         {.v = chromecmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{KeyPress,  MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{KeyPress,  MODKEY,             			XK_Return, spawn,          {.v = termcmd } },
+	{KeyPress,  MODKEY,             			XK_n, 		spawn,         {.v = chromecmd } },
+	{KeyPress,  MODKEY,                       XK_b,      togglebar,      {0} },
+	{KeyPress,  MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	{KeyPress,  MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+
+
+	{KeyPress,  MODKEY|ShiftMask,             XK_l,      shiftview,      {.i = +1 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_h,      shiftview,      {.i = -1 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+
+
+	{KeyPress,  MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+	{KeyPress,  MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{KeyPress,  MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+	{KeyPress,  MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{KeyPress,  MODKEY|ShiftMask,                       XK_Return, zoom,           {0} },
+	{KeyPress,  MODKEY,                       XK_Tab,    view,           {0} },
+	{KeyPress,  MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{KeyPress,  MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{KeyPress,  MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{KeyPress,  MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{KeyPress,  MODKEY,                       XK_space,  setlayout,      {0} },
+	{KeyPress,  MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{KeyPress,  MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+	{KeyPress,  MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+	{KeyPress,  MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -108,7 +115,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{KeyPress, MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */
@@ -126,5 +133,7 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTagBar,            0,              Button4,        shiftview,     { .i = -1 } },
+	{ ClkTagBar,            0,              Button5,        shiftview,     { .i = +1 } },
 };
 

@@ -1,0 +1,10 @@
+--- dwm.c	2011-12-19 16:02:46.000000000 +0100
++++ dwm.c	2014-02-28 22:19:58.466047686 +0100
+@@ -1089,6 +1091,7 @@ keypress(XEvent *e) {
+ 	keysym = XKeycodeToKeysym(dpy, (KeyCode)ev->keycode, 0);
+ 	for(i = 0; i < LENGTH(keys); i++)
+ 		if(keysym == keys[i].keysym
++		&& ev->type == keys[i].type
+ 		&& CLEANMASK(keys[i].mod) == CLEANMASK(ev->state)
+ 		&& keys[i].func)
+ 			keys[i].func(&(keys[i].arg));
