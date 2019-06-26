@@ -56,11 +56,11 @@
 #define ISVISIBLE(C) ((C->tags & C->mon->tagset[C->mon->seltags]))
 #define LENGTH(X) (sizeof X / sizeof X[0])
 #define MOUSEMASK (BUTTONMASK | PointerMotionMask)
-//#define WIDTH(X) ((X)->w + 2 * (X)->bw)
-//#define HEIGHT(X) ((X)->h + 2 * (X)->bw)
-#define gappx 5
-#define WIDTH(X) ((X)->w + 2 * (X)->bw + gappx)
-#define HEIGHT(X) ((X)->h + 2 * (X)->bw + gappx)
+#define WIDTH(X) ((X)->w + 2 * (X)->bw)
+#define HEIGHT(X) ((X)->h + 2 * (X)->bw)
+//#define gappx 15
+//#define WIDTH(X) ((X)->w + 2 * (X)->bw + gappx)
+//#define HEIGHT(X) ((X)->h + 2 * (X)->bw + gappx)
 #define TAGMASK ((1 << LENGTH(tags)) - 1)
 #define TEXTW(X) (drw_fontset_getwidth(drw, (X)) + lrpad)
 
@@ -857,6 +857,8 @@ void expose(XEvent *e)
 
 void focus(Client *c)
 {
+    XWindowChanges wc;
+
     if (!c || !ISVISIBLE(c))
 	for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext)
 	    ;
@@ -871,6 +873,13 @@ void focus(Client *c)
 	attachstack(c);
 	grabbuttons(c, 1);
 	XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
+
+	if (!c->isfloating) {
+	    wc.sibling = selmon->barwin;
+	    wc.stack_mode = Below;
+	    XConfigureWindow(dpy, c->win, CWSibling | CWStackMode, &wc);
+	}
+
 	setfocus(c);
     } else {
 	XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
@@ -1187,7 +1196,8 @@ void monocle(Monitor *m)
     if (n > 0) /* override layout symbol */
 	snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
     for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-	resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+	// resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+	resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0);
 }
 
 void motionnotify(XEvent *e)
@@ -1347,51 +1357,16 @@ void resizeclient(Client *c, int x, int y, int w, int h)
 {
     XWindowChanges wc;
 
-    unsigned int n;
-    unsigned int gapoffset;
-    unsigned int gapincr;
-    Client *nbc;
-
-    // c->oldx = c->x;
-    // c->x = wc.x = x;
-    // c->oldy = c->y;
-    // c->y = wc.y = y;
-    // c->oldw = c->w;
-    // c->w = wc.width = w;
-    // c->oldh = c->h;
-    // c->h = wc.height = h;
+    c->oldx = c->x;
+    c->x = wc.x = x;
+    c->oldy = c->y;
+    c->y = wc.y = y;
+    c->oldw = c->w;
+    c->w = wc.width = w;
+    c->oldh = c->h;
+    c->h = wc.height = h;
 
     wc.border_width = c->bw;
-
-
-    /* Get number of clients for the selected monitor */
-    for (n = 0, nbc = nexttiled(selmon->clients); nbc;
-	 nbc = nexttiled(nbc->next), n++)
-	;
-
-    /* Do nothing if layout is floating */
-    if (c->isfloating || selmon->lt[selmon->sellt]->arrange == NULL) {
-	gapincr = gapoffset = 0;
-    } else {
-	/* Remove border and gap if layout is monocle or only one client */
-	if (selmon->lt[selmon->sellt]->arrange == monocle || n == 1) {
-	    gapoffset = 0;
-	    gapincr = -2 * borderpx;
-	    wc.border_width = 0;
-	} else {
-	    gapoffset = gappx;
-	    gapincr = 2 * gappx;
-	}
-    }
-
-    c->oldx = c->x;
-    c->x = wc.x = x + gapoffset;
-    c->oldy = c->y;
-    c->y = wc.y = y + gapoffset;
-    c->oldw = c->w;
-    c->w = wc.width = w - gapincr;
-    c->oldh = c->h;
-    c->h = wc.height = h - gapincr;
 
 
     XConfigureWindow(dpy, c->win,
@@ -1800,13 +1775,22 @@ void tile(Monitor *m)
 	 c = nexttiled(c->next), i++)
 	if (i < m->nmaster) {
 	    h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-	    resize(c, m->wx, m->wy + my, mw - (2 * c->bw), h - (2 * c->bw), 0);
-	    my += HEIGHT(c);
+	    // resize(c, m->wx, m->wy + my, mw - (2 * c->bw), h - (2 * c->bw),
+	    // 0); my += HEIGHT(c);
+	    if (n == 1)
+		resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, False);
+	    else
+		resize(c, m->wx - c->bw, m->wy + my, mw - c->bw, h - c->bw,
+		       False);
+	    my += HEIGHT(c) - c->bw;
 	} else {
 	    h = (m->wh - ty) / (n - i);
-	    resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2 * c->bw),
-		   h - (2 * c->bw), 0);
-	    ty += HEIGHT(c);
+	    // resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2 * c->bw),
+	    //   h - (2 * c->bw), 0);
+	    // ty += HEIGHT(c);
+	    resize(c, m->wx + mw - c->bw, m->wy + ty, m->ww - mw, h - c->bw,
+		   False);
+	    ty += HEIGHT(c) - c->bw;
 	}
 }
 
