@@ -5,6 +5,8 @@
   * movestack
   * keypress
   * shiftview (got from "next prev tag")
+  * singlular borders
+  * gaps
 */
 
 /* appearance */
