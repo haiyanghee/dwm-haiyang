@@ -25,15 +25,6 @@ dwm_resources () {
 	CPU3=$(echo $cpuAll | awk '{print $3}')
 	CPU4=$(echo $cpuAll | awk '{print $4}')
 
-	#CPU=$((CPU1+CPU2+CPU3+CPU4))
-	#CPU=$((CPU / 4))
-	#CPU=${CPU:0:3}°C
-
-
-	echo $CPU1
-	echo $CPU2
-	echo $CPU3
-	echo $CPU4
 	CPU=$(echo "($CPU1+$CPU2+$CPU3+$CPU4)"/4 |bc)
 
 	#load=$(uptime | grep load | awk '{print $9}')
