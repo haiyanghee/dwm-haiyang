@@ -257,6 +257,7 @@ static void resizemouse(const Arg *arg);
 static void resizerequest(XEvent *e);
 static void restack(Monitor *m);
 static void run(void);
+static void runAutostart(void);
 static void scan(void);
 static int sendevent(Window w, Atom proto, int m, long d0, long d1, long d2,
 		     long d3, long d4);
@@ -1686,6 +1687,12 @@ void run(void)
 	    handler[ev.type](&ev); /* call handler */
 }
 
+void runAutostart(void)
+{
+    system("~/dwm-haiyang/dwmAutoStart.sh");
+}
+
+
 void scan(void)
 {
     unsigned int i, num;
@@ -2723,6 +2730,7 @@ int main(int argc, char *argv[])
     if (pledge("stdio rpath proc exec", NULL) == -1)
 	die("pledge");
 #endif /* __OpenBSD__ */
+    runAutostart();
     scan();
     run();
     cleanup();
