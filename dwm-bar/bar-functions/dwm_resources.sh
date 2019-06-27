@@ -37,7 +37,7 @@ dwm_resources () {
     STOTOT=$(df -h | grep  '/sda5' | awk '{print $2}')
     STOPER=$(df -h | grep  '/sda5' | awk '{print $5}')
 
-        printf "💻 MEM: %s/%s|CPU: %s%%, used: %s|STO: %s/%s: %s|\n" "$MEMUSED" "$MEMTOT" "$CPU" "$percent" "$STOUSED" "$STOTOT" "$STOPER"
+        printf "MEM: %s/%s|CPU: %s%%, used: %s|STO: %s/%s %s|\n" "$MEMUSED" "$MEMTOT" "$CPU" "$percent" "$STOUSED" "$STOTOT" "$STOPER"
 }
 
 dwm_resources
