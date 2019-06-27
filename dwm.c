@@ -205,6 +205,7 @@ static int applysizehints(Client *c, int *x, int *y, int *w, int *h,
 static void arrange(Monitor *m);
 static void arrangemon(Monitor *m);
 static void attach(Client *c);
+static void attachabove(Client *c);
 static void attachstack(Client *c);
 static void buttonpress(XEvent *e);
 static void checkotherwm(void);
@@ -504,6 +505,23 @@ void attach(Client *c)
     c->next = c->mon->clients;
     c->mon->clients = c;
 }
+
+
+void attachabove(Client *c)
+{
+    if (c->mon->sel == NULL || c->mon->sel == c->mon->clients
+	|| c->mon->sel->isfloating) {
+	attach(c);
+	return;
+    }
+
+    Client *at;
+    for (at = c->mon->clients; at->next != c->mon->sel; at = at->next)
+	;
+    c->next = at->next;
+    at->next = c;
+}
+
 
 void attachstack(Client *c)
 {
@@ -1286,7 +1304,8 @@ void manage(Window w, XWindowAttributes *wa)
 	c->isfloating = c->oldstate = trans != None || c->isfixed;
     if (c->isfloating)
 	XRaiseWindow(dpy, c->win);
-    attach(c);
+    // attach(c);
+    attachabove(c);
     attachstack(c);
     XChangeProperty(dpy, root, netatom[NetClientList], XA_WINDOW, 32,
 		    PropModeAppend, (unsigned char *)&(c->win), 1);
@@ -1703,7 +1722,8 @@ void sendmon(Client *c, Monitor *m)
     detachstack(c);
     c->mon = m;
     c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
-    attach(c);
+				     // attach(c);
+    attachabove(c);
     attachstack(c);
     focus(NULL);
     arrange(NULL);
@@ -2409,7 +2429,8 @@ int updategeom(void)
 		    m->clients = c->next;
 		    detachstack(c);
 		    c->mon = mons;
-		    attach(c);
+		    // attach(c);
+		    attachabove(c);
 		    attachstack(c);
 		}
 		if (m == selmon)
