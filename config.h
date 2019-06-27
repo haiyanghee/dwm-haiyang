@@ -8,6 +8,7 @@
   * singlular borders
   * gaps
   * systray
+  * attach above
 */
 
 /* appearance */
