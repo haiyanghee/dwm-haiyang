@@ -77,6 +77,12 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "umeWow",  NULL}; 
+//static const char *scrShot[]  = { "scrot", "~/Screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png", NULL}; 
+//static const char *scrShotWindow[]  = { "scrot", "-u", "~/Screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png", NULL}; 
+
+static const char *scrShot[] = { "scrot", "%Y-%m-%d-%H%M%S.png", "-e", "mv $f ~/Screenshots", NULL };
+static const char *scrShotWindow[]  = { "scrot", "-u", "%Y-%m-%d-%H%M%S.png", "-e", "mv $f ~/Screenshots", NULL }; 
+
 
 static const char *chromecmd[]  = { "chromium",  NULL}; 
 
@@ -95,6 +101,8 @@ static Key keys[] = {
 	{KeyPress,  MODKEY|ShiftMask,             XK_h,      shiftview,      {.i = -1 } },
 	{KeyPress,  MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{KeyPress,  MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{KeyPress,   0,              			  XK_Print,  spawn,      	{.v = scrShot} },
+	{KeyPress,  MODKEY,               		  XK_Print,  spawn,      	{.v = scrShotWindow} },
 
 
 	{KeyPress,  MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
