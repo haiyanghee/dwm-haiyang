@@ -1510,7 +1510,24 @@ void propertynotify(XEvent *e)
 
 void quit(const Arg *arg)
 {
-    running = 0;
+    FILE *fp;
+    char path[1035];
+    fp = popen("printf \"yes\nno\" | dmenu -i -p \"Close dwm?\"", "r");
+    printf("%s", (char *)fp);
+
+    while (fgets(path, sizeof(path) - 1, fp) != NULL) {
+	FILE *asd;
+	if (strcmp(path, "yes")) {
+	    asd = popen("printf \"%s\" path | dmenu -i -p \"ehhh\"", "r");
+	    printf("wow is %s", path);
+	    running = 0;
+	} else {
+	    asd = popen("printf \"%s\" path | dmenu -i -p \"ehhh\"", "r");
+	    printf("wow is %s", path);
+	}
+    }
+    fclose(fp);
+    // running = 0;
 }
 
 Monitor *recttomon(int x, int y, int w, int h)
