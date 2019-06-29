@@ -1,6 +1,7 @@
 #!/bin/bash
-feh --bg-max ~/Desktop/imp_pic/obitoo/untitleded_by_kyuubii9-d77ifzj.jpg
+source ~/.bashrc
+feh --bg-max $wallpaper
 compton &
 ~/.scripts/lockscreen.sh &
-~/.scripts/screenSaverTimeout.sh
+~/.scripts/screenSaverTimeout.sh &
 ~/.scripts/redshiftopen.sh &

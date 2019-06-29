@@ -99,8 +99,12 @@ static Key keys[] = {
 
 	{KeyPress,  MODKEY|ShiftMask,             XK_l,      shiftview,      {.i = +1 } },
 	{KeyPress,  MODKEY|ShiftMask,             XK_h,      shiftview,      {.i = -1 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_Right,  shiftview,      {.i = +1 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_Left,   shiftview,      {.i = -1 } },
 	{KeyPress,  MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{KeyPress,  MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_Down,   movestack,      {.i = +1 } },
+	{KeyPress,  MODKEY|ShiftMask,             XK_Up,     movestack,      {.i = -1 } },
 	{KeyPress,   0,              			  XK_Print,  spawn,      	{.v = scrShot} },
 	{KeyPress,  MODKEY,               		  XK_Print,  spawn,      	{.v = scrShotWindow} },
 
