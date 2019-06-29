@@ -1512,18 +1512,14 @@ void quit(const Arg *arg)
 {
     FILE *fp;
     char path[1035];
-    fp = popen("printf \"yes\nno\" | dmenu -i -p \"Close dwm?\"", "r");
-    printf("%s", (char *)fp);
+    fp = popen("~/dwm-haiyang/dwmQuit.sh", "r");
 
     while (fgets(path, sizeof(path) - 1, fp) != NULL) {
-	FILE *asd;
-	if (strcmp(path, "yes")) {
-	    asd = popen("printf \"%s\" path | dmenu -i -p \"ehhh\"", "r");
-	    printf("wow is %s", path);
+	if (strcmp(path, "y") == 0) {
+	    // yes
 	    running = 0;
 	} else {
-	    asd = popen("printf \"%s\" path | dmenu -i -p \"ehhh\"", "r");
-	    printf("wow is %s", path);
+	    // no
 	}
     }
     fclose(fp);
