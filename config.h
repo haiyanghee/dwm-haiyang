@@ -9,6 +9,7 @@
   * gaps
   * systray
   * attach above
+  * fake fullscreen (does not work for me because im bad, so i modified the patch a bit to make it workign for me )
 */
 
 /* appearance */
