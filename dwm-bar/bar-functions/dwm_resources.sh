@@ -25,7 +25,7 @@ dwm_resources () {
 	CPU3=$(echo $cpuAll | awk '{print $3}')
 	CPU4=$(echo $cpuAll | awk '{print $4}')
 
-	CPU=$(echo "($CPU1+$CPU2+$CPU3+$CPU4)"/4 |bc)
+	CPUTEMP=$(echo "($CPU1+$CPU2+$CPU3+$CPU4)"/4 |bc)
 
 	#load=$(uptime | grep load | awk '{print $9}')
 	#load=${load::-1}
@@ -37,7 +37,7 @@ dwm_resources () {
     STOTOT=$(df -h | grep  '/sda5' | awk '{print $2}')
     STOPER=$(df -h | grep  '/sda5' | awk '{print $5}')
 
-        printf "MEM: %s/%s|CPU: %s%%, used: %s|STO: %s/%s %s|\n" "$MEMUSED" "$MEMTOT" "$CPU" "$percent" "$STOUSED" "$STOTOT" "$STOPER"
+        printf "MEM: %s/%s|CPU: %s, temp: %s°C|STO: %s/%s %s|\n" "$MEMUSED" "$MEMTOT" "$percent" "$CPUTEMP"  "$STOUSED" "$STOTOT" "$STOPER"
 }
 
 dwm_resources

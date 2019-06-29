@@ -29,7 +29,7 @@ update() { \
 	# command easily avoids it.
 	#xsetroot -name "$(status | tr '\n' ' ')" &
 
-	xsetroot -name "$(dwm_resources)$(dwm_network | tr '\n' ' ')$(dwm_battery)$(dwm_alsa )$(dwm_weather | tr '\n' ' ' | sed 's/^[ \t]*//;s/[ \t]*$//' )""|$(date  '+%Y-%m-%d %r')"  &
+	xsetroot -name "$(dwm_resources)$(dwm_network | tr '\n' ' ')$(dwm_battery)$(dwm_alsa )$(dwm_weather | tr '\n' ' ' | sed 's/^[ \t]*//;s/[ \t]*$//' )""|$(date  '+%Y-%m-%d %a %r')"  &
 	
 	#$(date '+%Y-%m-%d-%H:%M:%S%P')""  &
     wait

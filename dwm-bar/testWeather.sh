@@ -9,5 +9,5 @@ do
 		curl -s "wttr.in/$location" > "$HOME/.local/share/weatherreport" 
 		curl -s "wttr.in/$location?format=4" >> "$HOME/.local/share/weatherreport" 
 		~/dwm-haiyang/dwm-bar/refbar
-	sleep 15m
+	sleep 30m
 done
