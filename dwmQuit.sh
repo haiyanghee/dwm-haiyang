@@ -1,5 +1,5 @@
 #!/bin/bash
-result=$(printf "yes\nno" | dmenu -i -p "Close dwm?")
+result=$(printf "no\nyes" | dmenu -i -p "Close dwm?")
 result=$(echo "$result" | awk '{print tolower($0)}')
 if [ "$result" = "yes" ] || [ "$result" = "y" ]; then
   echo "y"
