@@ -30,7 +30,8 @@ dwm_resources () {
 	#load=$(uptime | grep load | awk '{print $9}')
 	#load=${load::-1}
 
-	percent=$(mpstat | awk '{print $13}' | tr '\n' ' ' | awk '{print (100 - $2 ) "%"}')
+	#percent=$(mpstat | awk '{print $13}' | tr '\n' ' ' | awk '{print (100 - $2 ) "%"}')
+	percent=$(mpstat | awk '{print $4}' | tr '\n' ' ' | awk '{print $3 "%"}')
 
     # Used and total storage in /home (rounded to 1024B)
     STOUSED=$(df -h | grep '/sda5' | awk '{print $3}')

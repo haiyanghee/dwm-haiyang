@@ -1510,20 +1510,37 @@ void propertynotify(XEvent *e)
 
 void quit(const Arg *arg)
 {
+
     FILE *fp;
     char path[1035];
     fp = popen("~/dwm-haiyang/dwmQuit.sh", "r");
 
-    while (fgets(path, sizeof(path) - 1, fp) != NULL) {
-	if (strcmp(path, "y") == 0) {
-	    // yes
-	    running = 0;
-	} else {
-	    // no
-	}
+    fgets(path, sizeof(path) - 1, fp);
+    if (strcmp(path, "y") == 0) {
+	running = 0;
+	// yes
+    } else {
+	// no
     }
     fclose(fp);
-    // running = 0;
+
+    /*
+FILE *fp;
+char path[1035];
+fp = popen("~/dwm-haiyang/dwmQuit.sh", "r");
+
+while (fgets(path, sizeof(path) - 1, fp) != NULL) {
+    if (strcmp(path, "y") == 0) {
+	// yes
+	fclose(fp);
+	running = 0;
+    } else {
+	// no
+    }
+}
+fclose(fp);
+// running = 0;
+    // */
 }
 
 Monitor *recttomon(int x, int y, int w, int h)
