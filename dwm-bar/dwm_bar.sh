@@ -29,14 +29,12 @@ update() { \
 	# command easily avoids it.
 	#xsetroot -name "$(status | tr '\n' ' ')" &
 
-	xsetroot -name "$(dwm_resources)$(dwm_network | tr '\n' ' ')$(dwm_battery)$(dwm_alsa )$(dwm_weather | tr '\n' ' ' | sed 's/^[ \t]*//;s/[ \t]*$//' )""|$(date  '+%Y-%m-%d %a %r')"  &
+	xsetroot -name "$(dwm_resources)$(dwm_network | tr '\n' ' ')$(dwm_battery)$(dwm_alsa )$(dwm_weather | tr '\n' ' ' | sed 's/^[ \t]*//;s/[ \t]*$//' )""|$(date "+%Y-%m-%d %a %I:%M %p")"  &
 	
 	#$(date '+%Y-%m-%d-%H:%M:%S%P')""  &
-    wait
 
 	# Check to see if new weather report is needed.
 	#testweather &
-    wait
     }
 
 testweather() { 
@@ -73,6 +71,6 @@ do
 	# again. We run sleep in the background and use wait until it finishes,
     # because traps can interrupt wait immediately, but they can't do that
     # with sleep.
-	sleep 1  &
+	sleep 30  &
     wait
 done

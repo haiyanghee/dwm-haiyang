@@ -78,6 +78,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "umeWow",  NULL}; 
+static const char *wechatopencmd[]  = { "wechat",  NULL}; 
+static const char *qqopencmd[]  = { "qqopen",  NULL}; 
 //static const char *scrShot[]  = { "scrot", "~/Screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png", NULL}; 
 //static const char *scrShotWindow[]  = { "scrot", "-u", "~/Screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png", NULL}; 
 
@@ -91,11 +93,15 @@ static const char *chromecmd[]  = { "chromium",  NULL};
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{KeyPress,  MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{KeyPress,  MODKEY,             			XK_Return, spawn,          {.v = termcmd } },
-	{KeyPress,  MODKEY,             			XK_n, 		spawn,         {.v = chromecmd } },
+	{KeyPress,  MODKEY,             		  XK_Return, spawn,          {.v = termcmd } },
+	{KeyPress,  MODKEY,             		  XK_n, 	 spawn,         {.v = chromecmd } },
+	{KeyPress,  MODKEY,             		  XK_w, 	 spawn,         {.v = wechatopencmd } },
+	{KeyPress,  MODKEY,             		  XK_q, 	 spawn,         {.v = qqopencmd } },
 	{KeyPress,  MODKEY,                       XK_b,      togglebar,      {0} },
 	{KeyPress,  MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	{KeyPress,  MODKEY,                       XK_Down,      focusstack,     {.i = +1 } },
 	{KeyPress,  MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{KeyPress,  MODKEY,                       XK_Up,      focusstack,     {.i = -1 } },
 
 
 	{KeyPress,  MODKEY|ShiftMask,             XK_l,      shiftview,      {.i = +1 } },

@@ -14,7 +14,7 @@ dwm_weather() {
         #printf "[%s]\n" "$(curl -s wttr.in/$LOCATION?format=1)"
 		#print name of city
 		#sed '1q;d' "$HOME/.local/share/weatherreport" | awk '{print $3;}'| tr ',' ' ' | sed 's/^[ \t]*//;s/[ \t]*$//' 
-		sed '40q;d' "$HOME/.local/share/weatherreport"  &&
+		sed '41q;d' "$HOME/.local/share/weatherreport"  &&
 		#echo ":"
 		#print name of city and its current temp
 		#sed '4q;d' "$HOME/.local/share/weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print $1 "°","〰️",$2 "°"}' | tr '\n' ' ' &&
