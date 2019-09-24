@@ -22,6 +22,7 @@ dwm_battery () {
     #fi
 
 
+
 	for x in /sys/class/power_supply/BAT?/capacity;
 	do
 	case "$(cat $x)" in
@@ -29,9 +30,10 @@ dwm_battery () {
 		8[0-9]|7[0-9])	echo "|" $CHARGE"%";;
 		6[0-9]|5[0-9])	echo "|" $CHARGE"%";;
 		4[0-9]|3[0-9])	echo "|" $CHARGE"%";;
-		*)		echo "" ;;
+				*)		echo "";;
 	esac
 	done && echo "$delim"
+
 }
 
 dwm_battery

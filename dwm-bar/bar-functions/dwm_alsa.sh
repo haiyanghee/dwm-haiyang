@@ -7,6 +7,11 @@
 # Dependencies: alsa-utils
 
 dwm_alsa () {
+	echo ""
+	timeTemp= acpi | awk '{print $5}'
+	time=${timeTemp%????}
+
+
     VOL=$(amixer get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")
     if [ "$IDENTIFIER" = "unicode" ]; then
         if [ "$VOL" -eq 0 ]; then
