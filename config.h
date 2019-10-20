@@ -51,15 +51,15 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "><>",      NULL },    /* no layout function means floating behavior */
 };
 
 /* key definitions */
@@ -124,8 +124,8 @@ static Key keys[] = {
 	{KeyPress,  MODKEY,                       XK_Tab,    view,           {0} },
 	{KeyPress,  MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{KeyPress,  MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{KeyPress,  MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{KeyPress,  MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{KeyPress,  MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
+	{KeyPress,  MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
 	{KeyPress,  MODKEY,                       XK_space,  setlayout,      {0} },
 	{KeyPress,  MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{KeyPress,  MODKEY,                       XK_0,      view,           {.ui = ~0 } },
