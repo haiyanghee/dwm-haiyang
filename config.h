@@ -11,6 +11,7 @@
   * attach above
   * fake fullscreen (does not work for me because im bad, so i modified the
   patch a bit to make it workign for me )
+  * focus adjacent tag (added my own code so i can move the windows circular)
 */
 
 /* appearance */
@@ -126,11 +127,13 @@ static Key keys[] = {
     {KeyPress, MODKEY, XK_k, focusstack, {.i = -1}},
     {KeyPress, MODKEY, XK_Up, focusstack, {.i = -1}},
 
-
     {KeyPress, MODKEY | ShiftMask, XK_l, shiftview, {.i = +1}},
     {KeyPress, MODKEY | ShiftMask, XK_h, shiftview, {.i = -1}},
     {KeyPress, MODKEY | ShiftMask, XK_Right, shiftview, {.i = +1}},
     {KeyPress, MODKEY | ShiftMask, XK_Left, shiftview, {.i = -1}},
+    {KeyPress, MODKEY | ShiftMask | ControlMask, XK_h, tagtoleft, {.i = +1}},
+    {KeyPress, MODKEY | ShiftMask | ControlMask, XK_l, tagtoright, {.i = +1}},
+
     {KeyPress, MODKEY | ShiftMask, XK_j, movestack, {.i = +1}},
     {KeyPress, MODKEY | ShiftMask, XK_k, movestack, {.i = -1}},
     {KeyPress, MODKEY | ShiftMask, XK_Down, movestack, {.i = +1}},
