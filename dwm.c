@@ -310,9 +310,9 @@ static Systray *systray = NULL;
 static const char broken[] = "broken";
 static char stext[256];
 static int screen;
-static int sw, sh;      /* X display screen geometry width, height */
+static int sw, sh;	/* X display screen geometry width, height */
 static int bh, blw = 0; /* bar geometry */
-static int lrpad;       /* sum of left and right padding for text */
+static int lrpad;	/* sum of left and right padding for text */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
 static void (*handler[LASTEvent])(XEvent *) = {
