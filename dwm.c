@@ -1628,7 +1628,12 @@ void resizebarwin(Monitor *m)
 void resizeclient(Client *c, int x, int y, int w, int h)
 {
 	XWindowChanges wc;
+    unsigned int n;
+ 	unsigned int gapoffset;
+ 	unsigned int gapincr;
+ 	Client *nbc;
 
+    /*
 	c->oldx = c->x;
 	c->x = wc.x = x;
 	c->oldy = c->y;
@@ -1637,8 +1642,32 @@ void resizeclient(Client *c, int x, int y, int w, int h)
 	c->w = wc.width = w;
 	c->oldh = c->h;
 	c->h = wc.height = h;
+    */
 
 	wc.border_width = c->bw;
+
+	/* Get number of clients for the client's monitor */
+	for (n = 0, nbc = nexttiled(c->mon->clients); nbc; nbc = nexttiled(nbc->next), n++);
+
+	/* Do nothing if layout is floating */
+	if (c->isfloating || c->mon->lt[c->mon->sellt]->arrange == NULL) {
+		gapincr = gapoffset = 0;
+	} else {
+		/* Remove border and gap if layout is monocle or only one client */
+		if (c->mon->lt[c->mon->sellt]->arrange == monocle || n == 1) {
+			gapoffset = 0;
+			gapincr = -2 * borderpx;
+			wc.border_width = 0;
+		} else {
+			gapoffset = gappx;
+			gapincr = 2 * gappx;
+		}
+	}
+
+	c->oldx = c->x; c->x = wc.x = x + gapoffset;
+	c->oldy = c->y; c->y = wc.y = y + gapoffset;
+	c->oldw = c->w; c->w = wc.width = w - gapincr;
+	c->oldh = c->h; c->h = wc.height = h - gapincr;
 
 
 	XConfigureWindow(dpy, c->win,

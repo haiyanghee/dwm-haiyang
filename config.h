@@ -4,12 +4,12 @@
   * movestack
   * keypress
   * shiftview (got from "next prev tag")
-  * NO: this is not good.. dont get it singlular borders
   * gaps
+  * useless gap
   * systray
   * attach above
-  * fake fullscreen (does not work for me because im bad, so i modified the
-  patch a bit to make it workign for me )
+  * fake fullscreen  (comment out the lines where the floating parameter are
+  changed and the calls to resize function)
   * focus adjacent tag (added my own code so i can move the windows circular)
 */
 // clang-format off
