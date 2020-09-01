@@ -1,11 +1,10 @@
 /* See LICENSE file for copyright and license details. */
-//clang-format off
 /*
   A list of patches that I have used:
   * movestack
   * keypress
   * shiftview (got from "next prev tag")
-  * singlular borders
+  * NO: this is not good.. dont get it singlular borders
   * gaps
   * systray
   * attach above
@@ -13,6 +12,7 @@
   patch a bit to make it workign for me )
   * focus adjacent tag (added my own code so i can move the windows circular)
 */
+// clang-format off
 
 /* appearance */
 static const unsigned int borderpx = 3; /* border pixel of windows */
