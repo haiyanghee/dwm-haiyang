@@ -1,5 +1,8 @@
 # dwm-bar
 A modular statusbar for DWM
+
+**I am not using this anymore !** There is a better alternative called `dwmblocks` that I currently use. This is taken from https://github.com/joestandring/dwm-bar.
+
 ![screenshot](sshot.png)
 ## Table of Contents
 - [Features](#features)
