@@ -1795,7 +1795,9 @@ void run(void)
 
 void runAutostart(void)
 {
-	system("~/dwm-haiyang/dwmAutoStart.sh");
+    // not using this script and feature anymore.. 
+    // really should start things in xinitrc (unless you are using zsh..)
+	//system("~/dwm-haiyang/dwmAutoStart.sh");
 }
 
 
