@@ -1,8 +1,13 @@
+// clang-format off
 void
 movestack(const Arg *arg) {
 	Client *c = NULL, *p = NULL, *pc = NULL, *i;
 
 	if(arg->i > 0) {
+        // prevent crashing on no-window tag
+        if (selmon->sel == NULL)
+            return;
+        c = selmon->sel->next;
 		/* find the client after selmon->sel */
 		for(c = selmon->sel->next; c && (!ISVISIBLE(c) || c->isfloating); c = c->next);
 		if(!c)
@@ -10,6 +15,7 @@ movestack(const Arg *arg) {
 
 	}
 	else {
+        i = selmon->clients;
 		/* find the client before selmon->sel */
 		for(i = selmon->clients; i != selmon->sel; i = i->next)
 			if(ISVISIBLE(i) && !i->isfloating)
@@ -19,6 +25,8 @@ movestack(const Arg *arg) {
 				if(ISVISIBLE(i) && !i->isfloating)
 					c = i;
 	}
+
+
 	/* find the client before selmon->sel and c */
 	for(i = selmon->clients; i && (!p || !pc); i = i->next) {
 		if(i->next == selmon->sel)

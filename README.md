@@ -11,3 +11,14 @@ To add patches: `patch -p1 < path/to/patch.diff`. More information can be found 
 
 To change the config, go to `config.h`.
 The tags added (most of them at least) are in `config.h` file.
+
+## Patch issues
+
+In the `movestack` patch, there is a issue if you do `movestack, {.i = +1}` in the `config.h` (which I have in my config), if you press the corresponding key binding in an empty tag, it will crash dwm. So I added the following lines in `movestack.c`:
+```
+	if(arg->i > 0) {
+    // prevent crashing on no-window tag
+    if (selmon->sel == NULL)
+        return;
+``` 
+this should prevent the issue..
