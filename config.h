@@ -1,20 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-/*
-  A list of patches that I have used:
-  * movestack
-  * keypress
-  * shiftview (got from "next prev tag")
-  * gaps
-  * useless gap (removed the condition where no borders are shown when there is
-  only one window, because that way I can know if its in monocle mode or not)
-  * systray
-  * attach above
-  * fake fullscreen  (comment out the lines where the floating parameter are
-  changed and the calls to resize function)
-  * focus adjacent tag (added my own code so i can move the windows circular)
-  * alpha-fixborders  (because I can't make alpha working, so I just used the
-  fix borders patch)
-*/
+
 // clang-format off
 
 /* appearance */
@@ -100,7 +85,7 @@ static char dmenumon[2] =
 static const char *dmenucmd[] = {
     "dmenu_run", "-m",	    dmenumon, "-fn",	dmenufont, "-nb",     col_gray1,
     "-nf",	 col_gray3, "-sb",    col_cyan, "-sf",	   col_gray4, NULL};
-static const char *termcmd[] = {"umeWow", NULL};
+static const char *termcmd[] = {"stWow", NULL};
 static const char *wechatopencmd[] = {"wechat", NULL};
 static const char *qqopencmd[] = {"qqopen", NULL};
 // static const char *scrShot[]  = { "scrot",

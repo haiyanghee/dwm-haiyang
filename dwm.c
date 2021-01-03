@@ -1654,6 +1654,8 @@ void resizeclient(Client *c, int x, int y, int w, int h)
 		gapincr = gapoffset = 0;
 	} else {
 		/* Remove border and gap if layout is monocle (will show border if only one client )*/
+        //printf("c->mon->lt[c->mon->sellt]->arrange == monocle = %i\n", c->mon->lt[c->mon->sellt]->arrange == monocle);
+        //printf("n = %i\n", n);
 		if (c->mon->lt[c->mon->sellt]->arrange == monocle) {
 			gapoffset = 0;
 			gapincr = -2 * borderpx;
