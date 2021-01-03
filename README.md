@@ -12,6 +12,19 @@ To add patches: `patch -p1 < path/to/patch.diff`. More information can be found 
 To change the config, go to `config.h`.
 The tags added (most of them at least) are in `config.h` file.
 
+# Patches
+Here are the patches I have used (might be missing some but here are most of them):
+- movestack
+- keypress
+- shiftview (got from "next prev tag")
+- gaps
+- useless gap (removed the condition where no borders are shown when there is only one window, because that way I can know if its in monocle mode or not)
+- systray
+- attach above
+- fake fullscreen  (comment out the lines where the floating parameter are changed and the calls to resize function)
+- focus adjacent tag (added my own code so i can move the windows circular)
+- alpha-fixborders  (because I can't make alpha working, so I just used the fix borders patch)
+
 ## Patch issues
 
 In the `movestack` patch, there is a issue if you do `movestack, {.i = +1}` in the `config.h` (which I have in my config), if you press the corresponding key binding in an empty tag, it will crash dwm. So I added the following lines in `movestack.c`:
