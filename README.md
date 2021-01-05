@@ -21,11 +21,13 @@ Here are the patches I have used (might be missing some but here are most of the
 - useless gap (removed the condition where no borders are shown when there is only one window, because that way I can know if its in monocle mode or not)
 - systray
 - attach above
+- pertag
 - fake fullscreen  (comment out the lines where the floating parameter are changed and the calls to resize function)
 - focus adjacent tag (added my own code so i can move the windows circular)
 - alpha-fixborders  (because I can't make alpha working, so I just used the fix borders patch)
 - zoomswap
 - decoration hints (tbh idk what this really does)
+- winview (pretty cool but not gona use often)
 
 ## Patch issues
 

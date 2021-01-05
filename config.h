@@ -149,9 +149,17 @@ static Key keys[] = {
     {KeyPress, MODKEY, XK_period, focusmon, {.i = +1}},
     {KeyPress, MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
     {KeyPress, MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
-    TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
-	TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-	    TAGKEYS(XK_9, 8){KeyPress, MODKEY | ShiftMask, XK_q, quit, {0}},
+    TAGKEYS(XK_1, 0)
+    TAGKEYS(XK_2, 1)
+    TAGKEYS(XK_3, 2)
+    TAGKEYS(XK_4, 3)
+	TAGKEYS(XK_5, 4)
+    TAGKEYS(XK_6, 5) 
+    TAGKEYS(XK_7, 6) 
+    TAGKEYS(XK_8, 7)
+	TAGKEYS(XK_9, 8)
+    {KeyPress, MODKEY | ShiftMask, XK_q, quit, {0}},
+	{KeyPress,      MODKEY,                      XK_o,      winview,        {0} },
 };
 
 /* button definitions */

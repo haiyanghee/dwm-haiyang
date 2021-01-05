@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+// clang-format off
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int gappx     = 1;        /* gap pixel between windows */
@@ -102,7 +104,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ KeyPress,   MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{KeyPress,   MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{KeyPress,      MODKEY,                      XK_o,      winview,        {0} },
 };
 
 /* button definitions */
