@@ -5,7 +5,7 @@ my own dwm setup
 
 After you install **`libxft-bgra`**, you will also need to add the emoji font to the `static const char *fonts[]` array in dwm's `config.h`. For example, if you are using Noto Color Emojies, you should add something like `"Noto Color Emoji:pixelsize=11:antialias=true:autohint=true"` to the array, which is what I have for my dwm config.
 
-To compile dwm: `sudo make clean install`
+To install dwm: `sudo make clean install`
 
 To add patches: `patch -p1 < path/to/patch.diff`. More information can be found on https://suckless.org/hacking/
 
@@ -24,6 +24,7 @@ Here are the patches I have used (might be missing some but here are most of the
 - fake fullscreen  (comment out the lines where the floating parameter are changed and the calls to resize function)
 - focus adjacent tag (added my own code so i can move the windows circular)
 - alpha-fixborders  (because I can't make alpha working, so I just used the fix borders patch)
+- zoomswap
 
 ## Patch issues
 
