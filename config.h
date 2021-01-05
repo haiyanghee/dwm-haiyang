@@ -105,7 +105,8 @@ static const char *chromecmd[] = {"chromium", NULL};
 static Key keys[] = {
     /* modifier                     key        function        argument */
     {KeyPress, MODKEY, XK_p, spawn, {.v = dmenucmd}},
-    {KeyPress, MODKEY, XK_Return, spawn, {.v = termcmd}},
+    //{KeyPress, MODKEY, XK_Return, spawn, {.v = termcmd}},
+    {KeyPress, MODKEY, XK_Return, spawnsshaware, {.v = termcmd}},
     {KeyPress, MODKEY, XK_n, spawn, {.v = chromecmd}},
     {KeyPress, MODKEY, XK_w, spawn, {.v = wechatopencmd}},
     {KeyPress, MODKEY, XK_q, spawn, {.v = qqopencmd}},
