@@ -25,6 +25,7 @@ Here are the patches I have used (might be missing some but here are most of the
 - focus adjacent tag (added my own code so i can move the windows circular)
 - alpha-fixborders  (because I can't make alpha working, so I just used the fix borders patch)
 - zoomswap
+- decoration hints (tbh idk what this really does)
 
 ## Patch issues
 
