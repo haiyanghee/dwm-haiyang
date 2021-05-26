@@ -99,7 +99,8 @@ static const char *scrShotWindow[] = {
     "scrot", "-u", "%Y-%m-%d-%H%M%S.png", "-e", "mv $f ~/Screenshots", NULL};
 
 
-static const char *chromecmd[] = {"chromium", NULL};
+//static const char *browsercmd[] = {"chromium", NULL};
+static const char *browsercmd[] = {"qutebrowser", NULL};
 
 #include "movestack.c"
 static Key keys[] = {
@@ -107,7 +108,7 @@ static Key keys[] = {
     {KeyPress, MODKEY, XK_p, spawn, {.v = dmenucmd}},
     //{KeyPress, MODKEY, XK_Return, spawn, {.v = termcmd}},
     {KeyPress, MODKEY, XK_Return, spawnsshaware, {.v = termcmd}},
-    {KeyPress, MODKEY, XK_n, spawn, {.v = chromecmd}},
+    {KeyPress, MODKEY, XK_n, spawn, {.v = browsercmd}},
     {KeyPress, MODKEY, XK_w, spawn, {.v = wechatopencmd}},
     {KeyPress, MODKEY, XK_q, spawn, {.v = qqopencmd}},
     {KeyPress, MODKEY, XK_b, togglebar, {0}},
