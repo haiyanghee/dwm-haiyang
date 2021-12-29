@@ -39,9 +39,9 @@ static const Rule rules[] = {
      *	WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask     isfloating   monitor */
-    {"Gimp", NULL, NULL, 0, 1, -1},
-    {"Firefox", NULL, NULL, 1 << 8, 0, -1},
-    {"chromium", NULL, NULL, 0, 0, -1},
+    {"Gimp",      NULL,       NULL,        0,               1,        -1},
+    {"Firefox",   NULL,       NULL,        1 << 8,          0,        -1},
+    {"chromium",  NULL,       NULL,        0,               0,        -1},
 };
 
 /* layout(s) */
@@ -85,7 +85,7 @@ static char dmenumon[2] =
 static const char *dmenucmd[] = {
     "dmenu_run", "-m",	    dmenumon, "-fn",	dmenufont, "-nb",     col_gray1,
     "-nf",	 col_gray3, "-sb",    col_cyan, "-sf",	   col_gray4, NULL};
-static const char *termcmd[] = {"alacrittyWow", NULL};
+static const char *termcmd[] = {"/home/haiyang/.scripts/alacritty-spawn-cwd.sh", NULL};
 //static const char *termcmd[] = {"stWow", NULL};
 static const char *wechatopencmd[] = {"wechat", NULL};
 static const char *qqopencmd[] = {"qqopen", NULL};
@@ -100,8 +100,8 @@ static const char *scrShotWindow[] = {
     "scrot", "-u", "%Y-%m-%d-%H%M%S.png", "-e", "mv $f ~/Screenshots", NULL};
 
 
-//static const char *browsercmd[] = {"chromium", NULL};
-static const char *browsercmd[] = {"qutebrowser", NULL};
+static const char *browsercmd[] = {"chromium", NULL};
+//static const char *browsercmd[] = {"qutebrowser", NULL};
 
 #include "movestack.c"
 static Key keys[] = {

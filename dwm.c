@@ -1449,11 +1449,13 @@ void monocle(Monitor *m)
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 	//for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+	//	resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0);
+
 	for (c = m->stack; c && (!ISVISIBLE(c) || c->isfloating); c = c->snext);
 	if (c && !c->isfloating) {
 		XMoveWindow(dpy, c->win, m->wx, m->wy);
-		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
-		//resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0);
+		//resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+		resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0);
 		c = c->snext;
 	}
 	for (; c; c = c->snext)
@@ -2413,33 +2415,39 @@ void tile(Monitor *m)
 		return;
 
 	if (n > m->nmaster)
-		// mw = m->nmaster ? m->ww * m->mfact : 0;
-		mw = m->nmaster ? (m->ww - (g = gappx)) * m->mfact : 0;
+		mw = m->nmaster ? m->ww * m->mfact : 0;
+		// mw = m->nmaster ? (m->ww - (g = gappx)) * m->mfact : 0;
 	else
 		mw = m->ww;
 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
     		if (i < m->nmaster) {
-    			//h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-                r = MIN(n, m->nmaster) - i;
-                h = (m->wh - my - gappx * (r - 1)) / r;
-    			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-			    my += HEIGHT(c) + gappx;
                 /*
+    			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+    			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
+                
     			if (my + HEIGHT(c) < m->wh)
     				my += HEIGHT(c);
+                
                 */
+
+                r = MIN(n, m->nmaster) - i;
+                h = (m->wh - my - gappx * (r - 1)) / r;
+                resize(c, m->wx, m->wy + my, mw - (2*c->bw) + (n > 1 ? gappx : 0), h - (2*c->bw), 0);
+			    my += HEIGHT(c) + gappx;
 		} else {
-    			//h = (m->wh - ty) / (n - i);
-    			//resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
+                /*
+    			h = (m->wh - ty) / (n - i);
+    			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
+    			if (ty + HEIGHT(c) < m->wh)
+    				ty += HEIGHT(c);
+                */
+                
                 r = n - i;
                 h = (m->wh - ty - gappx * (r - 1)) / r;
                 resize(c, m->wx + mw + g, m->wy + ty, m->ww - mw - g - (2*c->bw), h - (2*c->bw), False);
                 ty += HEIGHT(c) + gappx;
-                /*
-    			if (ty + HEIGHT(c) < m->wh)
-    				ty += HEIGHT(c);
-                */
 		}
+
 }
 
 void togglebar(const Arg *arg)
