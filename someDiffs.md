@@ -1,0 +1,1 @@
+- configurenotify (the resizeclient is commented out) 

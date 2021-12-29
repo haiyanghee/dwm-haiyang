@@ -65,8 +65,8 @@
 #define ISVISIBLE(C) ((C->tags & C->mon->tagset[C->mon->seltags]))
 #define LENGTH(X) (sizeof X / sizeof X[0])
 #define MOUSEMASK (BUTTONMASK | PointerMotionMask)
-#define WIDTH(X) ((X)->w + 2 * (X)->bw)
-#define HEIGHT(X) ((X)->h + 2 * (X)->bw)
+#define WIDTH(X)                ((X)->w + 2 * (X)->bw + gappx)
+#define HEIGHT(X)               ((X)->h + 2 * (X)->bw + gappx)
 #define TAGMASK ((1 << LENGTH(tags)) - 1)
 #define TEXTW(X) (drw_fontset_getwidth(drw, (X)) + lrpad)
 #define SYSTEM_TRAY_REQUEST_DOCK 0
@@ -756,7 +756,7 @@ void configure(Client *c)
 void configurenotify(XEvent *e)
 {
 	Monitor *m;
-	// Client *c;
+	Client *c;
 	XConfigureEvent *ev = &e->xconfigure;
 	int dirty;
 
@@ -775,7 +775,15 @@ void configurenotify(XEvent *e)
 				//m->mh);
 				// XMoveResizeWindow(dpy, m->barwin, m->wx,
 				// m->by, m->ww, bh);
-				resizebarwin(m);
+
+				//resizebarwin(m);
+
+                for (m = mons; m; m = m->next) {
+                    for (c = m->clients; c; c = c->next)
+                        if (c->isfullscreen)
+                            resizeclient(c, m->mx, m->my, m->mw, m->mh);
+                    XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, m->ww, bh);
+                }
 			}
 			focus(NULL);
 			arrange(NULL);
@@ -1049,8 +1057,7 @@ void focus(Client *c)
 	//XWindowChanges wc;
 
 	if (!c || !ISVISIBLE(c))
-		for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext)
-			;
+		for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext) ;
 	if (selmon->sel && selmon->sel != c)
 		unfocus(selmon->sel, 0);
 	if (c) {
@@ -1451,11 +1458,11 @@ void monocle(Monitor *m)
 	//for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
 	//	resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0);
 
+
 	for (c = m->stack; c && (!ISVISIBLE(c) || c->isfloating); c = c->snext);
 	if (c && !c->isfloating) {
 		XMoveWindow(dpy, c->win, m->wx, m->wy);
-		//resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
-		resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0);
+		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
 		c = c->snext;
 	}
 	for (; c; c = c->snext)
@@ -1719,9 +1726,7 @@ void resizeclient(Client *c, int x, int y, int w, int h)
 	if (c->isfloating || c->mon->lt[c->mon->sellt]->arrange == NULL) {
 		gapincr = gapoffset = 0;
 	} else {
-		/* Remove border and gap if layout is monocle (will show border if only one client )*/
-        //printf("c->mon->lt[c->mon->sellt]->arrange == monocle = %i\n", c->mon->lt[c->mon->sellt]->arrange == monocle);
-        //printf("n = %i\n", n);
+		/* Remove border and gap if layout is monocle (the only one client case is ignored) */
 		if (c->mon->lt[c->mon->sellt]->arrange == monocle) {
 			gapoffset = 0;
 			gapincr = -2 * borderpx;
@@ -1737,9 +1742,7 @@ void resizeclient(Client *c, int x, int y, int w, int h)
 	c->oldw = c->w; c->w = wc.width = w - gapincr;
 	c->oldh = c->h; c->h = wc.height = h - gapincr;
 
-
-	XConfigureWindow(dpy, c->win,
-			 CWX | CWY | CWWidth | CWHeight | CWBorderWidth, &wc);
+	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
 	configure(c);
 	XSync(dpy, False);
 }
@@ -1990,20 +1993,26 @@ void setfullscreen(Client *c, int fullscreen)
 		c->oldstate = c->isfloating;
 		c->oldbw = c->bw;
 		c->bw = 0;
+
 		//c->isfloating = 1;
 		//resizeclient(c, c->mon->mx, c->mon->my, c->mon->mw, c->mon->mh);
+
 		XRaiseWindow(dpy, c->win);
 	} else if (!fullscreen && c->isfullscreen) {
 		XChangeProperty(dpy, c->win, netatom[NetWMState], XA_ATOM, 32,
 				PropModeReplace, (unsigned char *)0, 0);
 		c->isfullscreen = 0;
+
 		//c->isfloating = c->oldstate;
+
 		c->bw = c->oldbw;
 		c->x = c->oldx;
 		c->y = c->oldy;
 		c->w = c->oldw;
 		c->h = c->oldh;
+
 		//resizeclient(c, c->x, c->y, c->w, c->h);
+
 		arrange(c->mon);
 	}
 }
@@ -2415,8 +2424,8 @@ void tile(Monitor *m)
 		return;
 
 	if (n > m->nmaster)
-		mw = m->nmaster ? m->ww * m->mfact : 0;
-		// mw = m->nmaster ? (m->ww - (g = gappx)) * m->mfact : 0;
+		//mw = m->nmaster ? m->ww * m->mfact : 0;
+		mw = m->nmaster ? (m->ww - (g = gappx)) * m->mfact : 0;
 	else
 		mw = m->ww;
 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
@@ -2432,7 +2441,7 @@ void tile(Monitor *m)
 
                 r = MIN(n, m->nmaster) - i;
                 h = (m->wh - my - gappx * (r - 1)) / r;
-                resize(c, m->wx, m->wy + my, mw - (2*c->bw) + (n > 1 ? gappx : 0), h - (2*c->bw), 0);
+			    resize(c, m->wx, m->wy + my, mw - (2*c->bw) + (n > 1 ? gappx : 0), h - (2*c->bw), 0);
 			    my += HEIGHT(c) + gappx;
 		} else {
                 /*
@@ -2441,7 +2450,6 @@ void tile(Monitor *m)
     			if (ty + HEIGHT(c) < m->wh)
     				ty += HEIGHT(c);
                 */
-                
                 r = n - i;
                 h = (m->wh - ty - gappx * (r - 1)) / r;
                 resize(c, m->wx + mw + g, m->wy + ty, m->ww - mw - g - (2*c->bw), h - (2*c->bw), False);
