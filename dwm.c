@@ -1079,6 +1079,8 @@ void focus(Client *c)
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
 	}
 	selmon->sel = c;
+    if (selmon->lt[selmon->sellt]->arrange == monocle)
+		arrangemon(selmon);
 	drawbars();
 }
 
@@ -1446,9 +1448,26 @@ void monocle(Monitor *m)
 			n++;
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
-	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+	//for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+	//	resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+	//	//resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0);
+    
+    int onlyOneClient = n ==1;
+
+	for (c = m->stack; c && (!ISVISIBLE(c) || c->isfloating); c = c->snext);
+	if (c && !c->isfloating) {
+		XMoveWindow(dpy, c->win, m->wx, m->wy);
 		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
-		//resize(c, m->wx - c->bw, m->wy, m->ww, m->wh, 0);
+        if (onlyOneClient)
+            resizeclient(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw);
+        else
+		    resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+
+		c = c->snext;
+	}
+	for (; c; c = c->snext)
+		if (!c->isfloating && ISVISIBLE(c))
+			XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
 }
 
 void motionnotify(XEvent *e)
