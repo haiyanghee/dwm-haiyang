@@ -14,6 +14,9 @@ The tags added (most of them at least) are in `config.h` file.
 
 # Patches
 Here are the patches I have used (might be missing some but here are most of them):
+- hide other windows in monocle! Found in this [link](https://github.com/bakkeby/patches/blob/master/dwm/dwm-alpha_monocle_layout-6.2.diff) (original [Reddit link](https://www.reddit.com/r/suckless/comments/jiyl4h/hiding_background_windows_in_monocle_and_deck/))
+    - this [link](https://github.com/theniceboy/dwm-hide-and-restore-win.diff) might also be useful for some people
+
 - movestack
 - keypress
 - shiftview (got from "next prev tag")

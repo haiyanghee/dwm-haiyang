@@ -40,8 +40,8 @@ static const Rule rules[] = {
      */
     /* class      instance    title       tags mask     isfloating   monitor */
     {"Gimp",      NULL,       NULL,        0,               1,        -1},
-    {"Firefox",   NULL,       NULL,        1 << 8,          0,        -1},
-    {"chromium",  NULL,       NULL,        0,               0,        -1},
+    {"firefox",   NULL,       NULL,        1 << 8,          0,        -1},
+    //{"chromium",  NULL,       NULL,        0,               0,        -1},
 };
 
 /* layout(s) */
@@ -86,6 +86,7 @@ static const char *dmenucmd[] = {
     "dmenu_run", "-m",	    dmenumon, "-fn",	dmenufont, "-nb",     col_gray1,
     "-nf",	 col_gray3, "-sb",    col_cyan, "-sf",	   col_gray4, NULL};
 static const char *termcmd[] = {"/home/haiyang/.scripts/alacritty-spawn-cwd.sh", NULL};
+//static const char *termcmd[] = {"stWow", NULL};
 static const char *wechatopencmd[] = {"wechat", NULL};
 static const char *qqopencmd[] = {"qqopen", NULL};
 // static const char *scrShot[]  = { "scrot",
