@@ -122,7 +122,8 @@ static Key keys[] = {
 
     {KeyPress, MODKEY, XK_n, spawn, {.v = browsercmd}},
     {KeyPress, MODKEY, XK_w, spawn, {.v = wechatopencmd}},
-    {KeyPress, MODKEY, XK_q, spawn, {.v = qqopencmd}},
+    //{KeyPress, MODKEY, XK_q, spawn, {.v = qqopencmd}},
+
     {KeyPress, MODKEY, XK_b, togglebar, {0}},
     {KeyPress, MODKEY, XK_j, focusstack, {.i = +1}},
     {KeyPress, MODKEY, XK_Down, focusstack, {.i = +1}},
@@ -172,7 +173,11 @@ static Key keys[] = {
     TAGKEYS(XK_7, 6) 
     TAGKEYS(XK_8, 7)
 	TAGKEYS(XK_9, 8)
+    //quit dwm
     {KeyPress, MODKEY | ShiftMask, XK_q, quit, {0}},
+    //restart dwm
+    {KeyPress, MODKEY | ShiftMask, XK_r, quit, {1}},
+
 	{KeyPress,      MODKEY,                      XK_o,      winview,        {0} },
 };
 
