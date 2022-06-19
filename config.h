@@ -16,7 +16,8 @@ static const int systraypinningfailfirst =
 static const int showsystray = 1; /* 0 means no systray */
 static const int showbar = 1;	  /* 0 means no bar */
 static const int topbar = 1;	  /* 0 means bottom bar */
-static const char *fonts[] = {"monospace:size=11","Noto Color Emoji:pixelsize=11:antialias=true:autohint=true"};
+static const char *fonts[] = {"monospace:size=11:antialias=true:autohint=true",
+                            "Noto Color Emoji:size=11:antialias=true:autohint=true"};
 static const char dmenufont[] = "monospace:size=11";
 static const char col_gray1[] = "#222222";
 static const char col_gray2[] = "#444444";
@@ -107,8 +108,8 @@ static const char *browsercmd[] = {"chromium", NULL};
 static Key keys[] = {
     /* modifier                     key        function        argument */
     {KeyPress, MODKEY, XK_p, spawn, {.v = dmenucmd}},
-    //{KeyPress, MODKEY, XK_Return, spawn, {.v = termcmd}},
-    {KeyPress, MODKEY, XK_Return, spawnsshaware, {.v = termcmd}},
+    {KeyPress, MODKEY, XK_Return, spawn, {.v = termcmd}},
+    //{KeyPress, MODKEY, XK_Return, spawnsshaware, {.v = termcmd}},
     {KeyPress, MODKEY, XK_n, spawn, {.v = browsercmd}},
     {KeyPress, MODKEY, XK_w, spawn, {.v = wechatopencmd}},
     {KeyPress, MODKEY, XK_q, spawn, {.v = qqopencmd}},
