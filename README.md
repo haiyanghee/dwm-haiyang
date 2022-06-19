@@ -32,6 +32,7 @@ Here are the patches I have used (might be missing some but here are most of the
 - decoration hints (tbh idk what this really does)
 - winview (pretty cool but not gona use often)
 - sshawarespawn (if current terminal is ssh, will open new ssh term! very cool)
+- restartsig (I like the signal approach to reload dwm)
 
 ## Patch issues
 
