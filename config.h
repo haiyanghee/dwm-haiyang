@@ -41,7 +41,13 @@ static const Rule rules[] = {
      */
     /* class      instance    title       tags mask     isfloating   monitor */
     {"Gimp",      NULL,       NULL,        0,               1,        -1},
-    {"firefox",   NULL,       NULL,        1 << 8,          0,        -1},
+
+    //put slack and microsoft teams on tag 9
+    {"Slack",   NULL,       NULL,        1 << 8,          0,        -1},
+    {"Microsoft Teams - Preview", NULL,       NULL,        1 << 8,          0,        -1},
+
+    //{"firefox",   NULL,       NULL,        1 << 8,          0,        -1},
+    //{"chromium",   NULL,       NULL,        1 << 8,          0,        -1},
     //{"chromium",  NULL,       NULL,        0,               0,        -1},
 };
 
@@ -101,15 +107,20 @@ static const char *scrShotWindow[] = {
     "scrot", "-u", "%Y-%m-%d-%H%M%S.png", "-e", "mv $f ~/Screenshots", NULL};
 
 
-static const char *browsercmd[] = {"chromium", NULL};
+//will use firefox as default browser now ... it is superior
+static const char *browsercmd[] = {"firefox", NULL};
+//static const char *browsercmd[] = {"chromium", NULL};
 //static const char *browsercmd[] = {"qutebrowser", NULL};
 
 #include "movestack.c"
 static Key keys[] = {
     /* modifier                     key        function        argument */
     {KeyPress, MODKEY, XK_p, spawn, {.v = dmenucmd}},
+    //spawn normal terminal
     {KeyPress, MODKEY, XK_Return, spawn, {.v = termcmd}},
-    //{KeyPress, MODKEY, XK_Return, spawnsshaware, {.v = termcmd}},
+    //spawn terminal with same ssh instance if any
+    {KeyPress, MODKEY | ControlMask, XK_Return, spawnsshaware, {.v = termcmd}},
+
     {KeyPress, MODKEY, XK_n, spawn, {.v = browsercmd}},
     {KeyPress, MODKEY, XK_w, spawn, {.v = wechatopencmd}},
     {KeyPress, MODKEY, XK_q, spawn, {.v = qqopencmd}},
