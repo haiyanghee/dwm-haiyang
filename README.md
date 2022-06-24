@@ -46,7 +46,10 @@ In the `movestack` patch, there is a issue if you do `movestack, {.i = +1}` in t
 this should prevent the issue..
 
 ## TODOs
-- I thought I fixed the full screen/monocle bug (where some apps like zoom or teams will go out of the screen with duo monitors, and it will go out by the size of the gap between windows), but I'm not sure if its an application thing since most apps work fine ... will look into it
-- restart dwm (probably the signal patch is good enough)
-- swallow (look into what does the dynamic swallow do, but I don't think I'll need it)
-- scratch pad (good to have multiple ones, not sure if will get the dynamic one or not)
+- [ ] I thought I fixed the full screen/monocle bug (where some apps like zoom or teams will go out of the screen with duo monitors, and it will go out by the size of the gap between windows), but I'm not sure if its an application thing since most apps work fine ... will look into it
+- [X] restart dwm (probably the signal patch is good enough)
+- [ ] swallow (look into what does the dynamic swallow do, but I don't think I'll need it)
+    - https://dwm.suckless.org/patches/dynamicswallow/
+- [ ] scratch pad (good to have multiple ones, not sure if will get the dynamic one or not)
+    - https://dwm.suckless.org/patches/dynamicscratchpads/
+- [ ] have key bindings/functions to moving all windows on one tag to the other (and to other screens),  and swap between tags
