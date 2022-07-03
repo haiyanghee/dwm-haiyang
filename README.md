@@ -52,4 +52,5 @@ this should prevent the issue..
     - https://dwm.suckless.org/patches/dynamicswallow/
 - [ ] scratch pad (good to have multiple ones, not sure if will get the dynamic one or not)
     - https://dwm.suckless.org/patches/dynamicscratchpads/
-- [ ] have key bindings/functions to moving all windows on one tag to the other (and to other screens),  and swap between tags
+- [ ] have key bindings/functions to moving all windows on one tag to the other (and to other screens),  and swap (windows) between tags
+- [ ] it would be nice to be able to save multiple screen layouts (at least for 2 screens). Not sure how hard is it to add
