@@ -158,7 +158,6 @@ static Key keys[] = {
     {KeyPress, MODKEY, XK_m, setlayout, {.v = &layouts[1]}},
     {KeyPress, MODKEY, XK_space, setlayout, {0}},
     {KeyPress, MODKEY | ShiftMask, XK_space, togglefloating, {0}},
-	{KeyPress, MODKEY|ShiftMask,   XK_f,     togglefullscr,  {0} },
     {KeyPress, MODKEY, XK_0, view, {.ui = ~0}},
     {KeyPress, MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
     {KeyPress, MODKEY, XK_comma, focusmon, {.i = -1}},
@@ -179,6 +178,7 @@ static Key keys[] = {
     {KeyPress, MODKEY | ShiftMask, XK_q, quit, {0}},
     //restart dwm
     {KeyPress, MODKEY | ShiftMask, XK_r, quit, {1}},
+	{KeyPress, MODKEY|ShiftMask,   XK_f,     togglefullscr,  {0} },
 
 	{KeyPress,      MODKEY,                      XK_o,      winview,        {0} },
 };

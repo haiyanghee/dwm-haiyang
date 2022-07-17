@@ -2003,6 +2003,7 @@ void setfocus(Client *c)
 
 void setfullscreen(Client *c, int fullscreen)
 {
+    //my older changes
 	if (fullscreen && !c->isfullscreen) {
 		XChangeProperty(dpy, c->win, netatom[NetWMState], XA_ATOM, 32,
 				PropModeReplace,
@@ -2027,6 +2028,34 @@ void setfullscreen(Client *c, int fullscreen)
 		//resizeclient(c, c->x, c->y, c->w, c->h);
 		arrange(c->mon);
 	}
+}
+
+void setfullscreenOrig(Client *c, int fullscreen){
+    //dwm original fullscreen
+    if (fullscreen && !c->isfullscreen) {
+        XChangeProperty(dpy, c->win, netatom[NetWMState], XA_ATOM, 32,
+                PropModeReplace, (unsigned char*)&netatom[NetWMFullscreen], 1);
+        c->isfullscreen = 1;
+        c->oldstate = c->isfloating;
+        c->oldbw = c->bw;
+        c->bw = 0;
+        c->isfloating = 1;
+        resizeclient(c, c->mon->mx, c->mon->my, c->mon->mw, c->mon->mh);
+        XRaiseWindow(dpy, c->win);
+    } else if (!fullscreen && c->isfullscreen){
+        XChangeProperty(dpy, c->win, netatom[NetWMState], XA_ATOM, 32,
+                PropModeReplace, (unsigned char*)0, 0);
+        c->isfullscreen = 0;
+        c->isfloating = c->oldstate;
+        c->bw = c->oldbw;
+        c->x = c->oldx;
+        c->y = c->oldy;
+        c->w = c->oldw;
+        c->h = c->oldh;
+        resizeclient(c, c->x, c->y, c->w, c->h);
+        arrange(c->mon);
+    }
+
 }
 
 void setlayout(const Arg *arg)
@@ -2370,7 +2399,8 @@ void
 togglefullscr(const Arg *arg)
 {
   if(selmon->sel)
-    setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
+    //setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
+    setfullscreenOrig(selmon->sel, !selmon->sel->isfullscreen);
 }
 
 void
